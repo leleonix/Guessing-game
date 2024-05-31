@@ -1,0 +1,117 @@
+## **Wymagania wstępne**
+
+**Zainstalowane oprogramowanie:**
+
+- Git
+- Docker
+
+## **Instrukcje Krok po Kroku**
+
+### **1. Sklonowanie repozytorium**
+
+Sklonuj repozytorium na swój lokalny komputer:
+
+```python
+git clone <adres_repozytorium>
+
+cd <nazwa_repozytorium>
+```
+
+### **2. Budowanie obrazu Docker**
+
+W katalogu głównym projektu utwórz plik o nazwie Dockerfile i dodaj do niego następującą zawartość:
+
+```python
+FROM python:3.12
+
+WORKDIR /usr/src/app
+
+COPY requirements.txt ./
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+```
+
+### **Konfiguracja bazy danych PostgreSQL**
+
+Zainstaluj PostgreSQL:
+
+```python
+sudo apt update
+
+sudo apt install postgresql postgresql-contrib
+```
+
+Uruchom serwer PostgreSQL:
+
+```python
+sudo systemctl start postgresql
+
+sudo systemctl enable postgresql
+```
+
+Zaloguj się do PostgreSQL jako użytkownik “postgres”:
+
+```python
+sudo -u postgres psql
+```
+
+**Utwórz nowego użytkownika**:
+
+```python
+CREATE USER nazwa_uzytkownika WITH PASSWORD 'haslo_uzytkownika';
+```
+
+**Utwórz nową bazę danych**:
+
+```python
+CREATE DATABASE nazwa_db;
+```
+
+**Przyznaj uprawnienia użytkownikowi do nowej bazy danych**:
+
+```python
+GRANT ALL PRIVILEGES ON DATABASE guessing_game_db TO nazwa_uzytkownika;
+```
+
+Zbuduj obraz Docker dla aplikacji
+
+```python
+docker build -t moja_aplikacja .
+```
+
+Uruchom kontener z aplikacją, łącząc go z bazą danych:
+
+```python
+docker run --name moja_aplikacja 
+--link nazwa_bazy_danych:db -e 
+DB_HOST=db -e DB_USER=nazwa_uzytkownika -e 
+DB_PASSWORD=haslo_uzytkownika -e 
+DB_NAME=nazwa_bazy_danych -p 8000:8000 -d moja_aplikacja
+
+```
+
+### **4. Konfiguracja aplikacji do używania nowego użytkownika**
+
+Zaktualizuj plik database.py, aby dodać nowego użytkownika do bazy:
+
+```python
+DATABASE_URL = "postgresql://user:user_password@localhost/nazwa_bazy_danych.db"
+
+engine = create_engine(DATABASE_URL)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+Base = declarative_base()
+```
+
+### **5. Uruchomienie aplikacji**
+
+Uruchom aplikację FastAPI za pomocą uvicorn:
+
+```python
+uvicorn main:app --reload
+```
+
+Po uruchomieniu aplikacji, powinna być dostępna pod adresem http://localhost:8000.
