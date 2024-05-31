@@ -1,0 +1,42 @@
+**1. Platforma chmurowa:**
+
+- kryteria wyboru: funkcje, ceny, łatwość użytkowania, zgodność z istniejącą infrastrukturą,
+- zarejestruj się na wybranej platformie i utwórz konto użytkownika,
+- skonfiguruj dostęp do konta chmurowego, korzystając z odpowiednich kluczy API, tokenów uwierzytelniających itp.
+
+**2. Przygotowanie obrazu Docker:**
+
+- upewnij się, że obraz Docker jest zbudowany zgodnie z instrukcją w repozytorium,
+- zdefiniuj punkty wejścia i konfiguracje środowiskowe.
+
+**3. Utworzenie serwisu w chmurze:**
+
+- wybierz odpowiednią usługę dla uruchamiania kontenerów (np. Amazon Elastic Container Service (ECS), Azure Kubernetes Service (AKS), Google Kubernetes Engine (GKE)),
+- skonfiguruj serwis, definiując liczbę kontenerów, zasoby obliczeniowe i sieciowe,
+- stwórz kontener, na którym będzie uruchomiona aplikacja, wybierając odpowiedni rozmiar zasobu obliczeniowego i system operacyjny, określ strategię skalowania i aktualizacji,
+- skonfiguruj środowisko uruchomieniowe, instalując wymagane narzędzia i biblioteki.
+
+**4. Zarządzanie bazą danych:**
+
+- utwórz bazę danych w chmurze (np. Amazon RDS, Azure SQL Database, Google Cloud SQL),
+- skonfiguruj dostęp do bazy danych z kontenerów aplikacji,
+- zapewnij bezpieczeństwo i wysoką dostępność bazy danych.
+
+**5. Wdrażanie aplikacji:**
+
+- wypchnij obraz Docker do rejestru obrazów w chmurze,
+- wdroż obraz w serwisie, konfigurując parametry sieciowe i środowisko,
+- monitoruj wydajność i logi aplikacji.
+
+**6. Zabezpieczenie aplikacji:**
+
+- stosuj uwierzytelnianie i autoryzację dla dostępu do aplikacji,
+- szyfruj dane poufne i komunikację sieciową,
+- regularnie skanuj aplikację w poszukiwaniu luk i aktualizuj oprogramowanie.
+
+**7. Monitorowanie i skalowanie:**
+
+- monitoruj użycie zasobów i wydajność aplikacji,
+- skaluj aplikację w zależności od obciążenia,
+- automatyzuj procesy wdrażania i skalowania,
+- regularnie przeglądaj koszty korzystania z usług i optymalizuj zasoby.
