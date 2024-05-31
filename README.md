@@ -11,7 +11,7 @@
 1. Sklonuj repozytorium:
 
     ```bash
-    git clone 
+    git clone https://github.com/leleonix/Guessing-game.git
     cd guessing_game
     ```
 
